@@ -13,7 +13,7 @@ The **single mode** applies one simulation (e.g., missing_slides) to a NIfTI fil
 
 
 
-**CLI Parameters**
+##  CLI Parameters
 
 * **`--input_dir`**: Directory containing NIfTI files or Directory to single nii or nii.gz file (default: `data/`)
 * **`--output_dir`**: Directory for outputs and JSON (default: `outputs/`)
