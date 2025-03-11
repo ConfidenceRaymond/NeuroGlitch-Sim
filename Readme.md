@@ -35,32 +35,33 @@ The `single mode` applies one simulation (e.g., missing_slides) to a NIfTI file,
 
 ##  Usage
 **Single File Processing**
-Use single_file_cli.py for a single file
-Single file, single mode:
 
-Single file, independent mode:
+_Use single_file_cli.py for a single file_
+_Single file, single mode:_
+
+_Single file, independent mode:_
 ```bash
 python src/single_file_cli.py --input_dir data/ --sim_mode independent --sim_type wrong_sequence mixed_axis --shuffle_param 0.7 --weight_param 0.4
 ```
 
-Single file, chain mode:
+_Single file, chain mode:_
 ```bash
 python src/single_file_cli.py --input_file data/image1.nii.gz --sim_mode chained --sim_type mixed_axis wrong_sequence --weight_param 0.4 --shuffle_param 0.6
 ```
 
 **Batch Processing (Multiple Files)**
-Use multi_file_cli.py for multiple files
-Multiple file, single mode:
+_Use multi_file_cli.py for multiple files_
+_Multiple file, single mode:_
 ```bash
 python src/multi_file_cli.py --input_dir data/ --sim_mode single --sim_type wrong_sequence --shuffle_param 0.7
 ```
 
-Multiple Files, independent mode:
+_Multiple Files, independent mode:_
 ```bash
 python src/multi_file_cli.py --input_dir data/ --sim_mode independent --sim_type missing_slides mixed_axis --remove_param 8 --weight_param 0.4
 ```
 
-Multiple Files, Chained mode:
+_Multiple Files, Chained mode:_
 
 ## Installation
 ```bash
