@@ -102,6 +102,7 @@ JSON Analysis: --json_file or <output_dir>/analysis_results.json
         "gif_path": "gifs/image1_missing_slides.gif"
     }
 ]
+```
 
 **Independent:** One entry per simulation
 ```json
@@ -117,6 +118,7 @@ JSON Analysis: --json_file or <output_dir>/analysis_results.json
         "output_path": "outputs/image1_missing_slides.nii.gz"
     }
 ]
+```
 
 **Chained: One entry with ordered simulation types**
 ```json
@@ -142,3 +144,4 @@ JSON Analysis: --json_file or <output_dir>/analysis_results.json
         "output_path": "outputs/image1_chained_mixed_axis_wrong_sequence.nii.gz"
     }
 ]
+```
