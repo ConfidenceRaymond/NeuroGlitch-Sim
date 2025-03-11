@@ -90,7 +90,7 @@ JSON Analysis: --json_file or <output_dir>/analysis_results.json
 
 **JSON Output Format**
 **Independent:** Simulation entry
-json
+```json
 [
     {
         "file_name": "image1",
@@ -104,7 +104,7 @@ json
 ]
 
 **Independent:** One entry per simulation
-json
+```json
 [
     {
         "file_name": "image1",
@@ -119,7 +119,7 @@ json
 ]
 
 **Chained: One entry with ordered simulation types**
-json
+```json
 [
     {
         "file_name": "image1",
