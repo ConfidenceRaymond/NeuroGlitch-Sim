@@ -30,24 +30,32 @@ The **single mode** applies one simulation (e.g., missing_slides) to a NIfTI fil
 * **`--weight_param`**: Simulation parameter for weighting elements. Reguired for `mixed_axis`
 * **`--mixed_axis_list`**: List of axes for mixed-axis operations (default: `[0 1 2]`; option: `[0 1] or [0 1 2]`) Reguired for `mixed_axis`
 
-**Usage**
+##  Usage
 **Single File Processing**
 Use single_file_cli.py for a single file
 Single file, single mode:
 
 Single file, independent mode:
+```bash
 python src/single_file_cli.py --input_dir data/ --sim_mode independent --sim_type wrong_sequence mixed_axis --shuffle_param 0.7 --weight_param 0.4
+```
 
 Single file, chain mode:
+```bash
 python src/single_file_cli.py --input_file data/image1.nii.gz --sim_mode chained --sim_type mixed_axis wrong_sequence --weight_param 0.4 --shuffle_param 0.6
+```
 
 **Batch Processing (Multiple Files)**
 Use multi_file_cli.py for multiple files
 Multiple file, single mode:
+```bash
 python src/multi_file_cli.py --input_dir data/ --sim_mode single --sim_type wrong_sequence --shuffle_param 0.7
+```
 
 Multiple Files, independent mode:
+```bash
 python src/multi_file_cli.py --input_dir data/ --sim_mode independent --sim_type missing_slides mixed_axis --remove_param 8 --weight_param 0.4
+```
 
 Multiple Files, Chained mode:
 
@@ -57,6 +65,7 @@ git clone https://github.com/ConfidenceRaymond/NIftI-SimViz.git
 cd NIftI-SimViz
 pip install -r requirements.txt
 cd scr
+```
 
 
 **Output Locations**
