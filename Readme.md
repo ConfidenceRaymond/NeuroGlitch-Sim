@@ -1,14 +1,14 @@
 
 
-A Python tool for simulating missing slides, wrong sequence, and mixed axis issues in 3D NIfTI brain imaging data, either **single, independently or chained**, visualizing results as GIFs, and documenting simulation details in JSON. Supports batch processing of multiple files or single-file processing with customizable simulation types.
+A Python tool for simulating `missing slides, wrong sequence, and mixed axis` issues in 3D NIfTI brain imaging data, either `**single, independently or chained**`, visualizing results as GIFs, and documenting simulation details in JSON. Supports batch processing of multiple files or single-file processing with customizable simulation types.
 
-The **single mode** applies one simulation (e.g., missing_slides) to a NIfTI file, producing a single output with specific targets, ideal for isolated analysis. The **independent mode** applies multiple simulations (e.g., missing_slides and wrong_sequence) separately to the original data, generating distinct outputs and targets for each, allowing comparison of individual effects. The **chained mode** applies multiple simulations sequentially (e.g., mixed_axis then wrong_sequence), with each simulation modifying the previous result, producing a single output with combined targets like final_to_original and source_axis, reflecting the cumulative impact of ordered transformations.
+The `**single mode**` applies one simulation (e.g., missing_slides) to a NIfTI file, producing a single output with specific targets, ideal for isolated analysis. The `**independent mode**` applies multiple simulations (e.g., `missing_slides and wrong_sequence`) separately to the original data, generating distinct outputs and targets for each, allowing comparison of individual effects. The `**chained mode**` applies multiple simulations sequentially (e.g., `mixed_axis then wrong_sequence`), with each simulation modifying the previous result, producing a single output with combined targets like `final_to_original and source_axis`, reflecting the cumulative impact of ordered transformations.
 
-**missing_slides:** Randomly removes a specified number or fraction of slices along a chosen axis, simulating data loss, with targets tracking removed positions and presence. ![Missing Slides Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet.jpg)
+**Missing_slides:** Randomly removes a specified number or fraction of slices along a chosen axis, simulating data loss, with targets tracking removed positions and presence. ![Missing Slides Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet.jpg)
 
 **wrong_sequence:** Randomly shuffles a specified number or fraction of slices along a chosen axis, simulating misordering, with targets providing the original sequence order. ![Wrong Sequence Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ws.jpg)
 
-**mixed_axis:** Replaces a specified number or fraction of slices along a primary axis with data from auxiliary axes (resized if needed), simulating axis confusion, with targets identifying mixed positions and source axes. ![Mixed Axis Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ma.jpg)
+**Mixed_axis:** Replaces a specified number or fraction of slices along a primary axis with data from auxiliary axes (resized if needed), simulating axis confusion, with targets identifying mixed positions and source axes. ![Mixed Axis Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ma.jpg)
 
 
 
