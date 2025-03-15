@@ -114,16 +114,7 @@ Combinining the `single mode` and `multi_img` applies one simulation (e.g., `mis
 
 
 **JSON Output Format**
-* **Single Mode:** One entry per simulation type
-    * file_name, simulation_mode: "single", simulation_type, axis_list (for mixed_axis), targets, output_shape
-* **Independent Mode:** One entry per simulation type
-    * file_name, simulation_mode: "independent", simulation_type, axis_list (for mixed_axis), targets, output_shape
-* **Chained Mode:** One entry with combined simulations
-    * file_name, simulation_mode: "chained", simulation_types, axis_list (if mixed_axis included), targets, output_shape
-
-
-**JSON Output Format**
-**Independent:** Simulation entry
+**Single:** Simulation entry
 ```json
 [
     {
@@ -154,7 +145,7 @@ Combinining the `single mode` and `multi_img` applies one simulation (e.g., `mis
 ]
 ```
 
-**Chained: One entry with ordered simulation types**
+**Chained:** One entry with ordered simulation types
 ```json
 [
     {
