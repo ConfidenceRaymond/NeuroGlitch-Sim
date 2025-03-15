@@ -6,7 +6,7 @@ import os
 import scipy.ndimage as ndi
 import matplotlib.pyplot as plt
 
-class NIfTISimulator:
+class ArtifactSimulator:
     """
     A class to simulate common issues in 3D NIfTI files, such as missing slides,
     incorrect sequences, and mixed axis simulations along a user-specified axis.
@@ -23,6 +23,7 @@ class NIfTISimulator:
         pass  # No persistent state to clear in this implementation
 
     def simulate_missing_slides(self, data, remove_param, axis=0):
+        print(f'remove_param: {remove_param}')
         num_slices = data.shape[axis]
         if isinstance(remove_param, int):
             k = remove_param

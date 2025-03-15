@@ -35,6 +35,6 @@ def save_gif(data, output_name, axis=0, duration=0.1, percentage=0.3):
         rot_frame = np.rot90(frame, k=1)
         frames.append(rot_frame)
     
-    gif_path = f'../gifs/{output_name}.gif'
+    gif_path = f'../gifs/{output_name}'
     imageio.mimsave(gif_path, frames, duration=duration)
     print(f"Saved GIF: {gif_path}")

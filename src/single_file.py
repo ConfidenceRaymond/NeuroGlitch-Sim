@@ -3,38 +3,46 @@ import os
 import json
 import numpy as np
 from pathlib import Path
-from simulator import NIfTISimulator
+from simulator import ArtifactSimulator
 from gif_visualizer import save_gif
 
-class NIfTI_SingleFileCLI:
+class SingleFileCLI:
     def __init__(self):
         self.parser = self._create_parser()
+        
+        
+    def int_or_float(self, value):
+        try:
+            return int(value)
+        except ValueError:
+            return float(value)
    
     def _create_parser(self):
         parser = argparse.ArgumentParser(
             description="Simulate issues on a single NIfTI file (single, independent, or chained), generate GIFs, and document in JSON."
         )
-        parser.add_argument("--input_file", type=str, required=True, help="Path to the input NIfTI file (.nii or .nii.gz)")
-        parser.add_argument("--output_dir", type=str, default="../outputs/", help="Directory to save outputs and JSON if not specified")
+        parser.add_argument("--i", type=str, required=True, help="Path to the input NIfTI file (.nii or .nii.gz)")
+        parser.add_argument("--o", type=str, default="../outputs/", help="Directory to save outputs and JSON if not specified")
         parser.add_argument("--gif_dir", type=str, default="../outputs/gifs/", help="Directory to save GIFs")
         parser.add_argument("--json_file", type=str, default=None, help="JSON output file (default: <output_dir>/analysis_results.json)")
-        parser.add_argument("--sim_mode", type=str, choices=["single", "independent", "chained"], default="single", help="Simulation mode (single: 1, independent/chained: 2+)")
+        parser.add_argument("--sim_mode", type=str, choices=["single", "independent", "chained"], default="single", required=True,  help="Simulation mode (single: 1, independent/chained: 2+)")
         parser.add_argument("--sim_type", type=str, nargs="+", choices=["missing_slides", "wrong_sequence", "mixed_axis"], required=True, help="Simulation types")
 
         # Simulation-specific parameters
-        parser.add_argument("--remove_param", type=int, default=5, help="Number/fraction of slides to remove (missing_slides)")
+        parser.add_argument("--remove_param", type=self.int_or_float,  default=5, help="Number/fraction of slides to remove (missing_slides)")
         parser.add_argument("--shuffle_param", type=float, default=0.5, help="Number/fraction of slides to shuffle (wrong_sequence)")
         parser.add_argument("--weight_param", type=float, default=0.3, help="Number/fraction of slides to mix (mixed_axis)")
         parser.add_argument("--mixed_axis_list", type=int, nargs="+", default=[0, 1, 2], help="Axes for mixed_axis (e.g., 0 1 2)") #nargs="+",
 
-        parser.add_argument("--axis", type=int, choices=[0, 1, 2], default=0, help="Main axis for simulations")
+        parser.add_argument("--axis", type=int, choices=[0, 1, 2], default=np.random.choice([0, 1, 2]), help="Main axis for simulations")
         parser.add_argument("--clear_state", action="store_true", help="Clear simulator state before running")
         parser.add_argument("--save_type", type=str, choices=["3d", "jpeg", "None"], default="None", help="Output save type")
         return parser
 
     def run(self):
         args = self.parser.parse_args()
-        print(args.mixed_axis_list)
+        args.input_file = args.i
+        args.output_dir = args.o
        
         # Validate sim_type based on mode
         if args.sim_mode == "single" and len(args.sim_type) != 1:
@@ -45,6 +53,7 @@ class NIfTI_SingleFileCLI:
             return
        
         # Validate input file
+        print(args.input_file)
         if not os.path.isfile(args.input_file) or not args.input_file.endswith(('.nii', '.nii.gz')):
             print(f"Error: {args.input_file} is not a valid NIfTI file")
             return
@@ -59,7 +68,7 @@ class NIfTI_SingleFileCLI:
         # Ensure directories exist
         Path(args.output_dir).mkdir(exist_ok=True)
         Path(args.gif_dir).mkdir(exist_ok=True)
-        json_path = args.json_file if args.json_file else os.path.join(args.output_dir, "analysis_results.json")
+        json_path = args.json_file if args.json_file else os.path.join(args.output_dir, "single_analysis_results.json")
        
         # Configure simulations based on sim_type
         sim_configs = {}
@@ -76,7 +85,7 @@ class NIfTI_SingleFileCLI:
         base_name = os.path.splitext(os.path.splitext(os.path.basename(file_path))[0])[0]
         print(f"Processing {file_path} in {args.sim_mode} mode with simulations: {args.sim_type}...")
        
-        simulator = NIfTISimulator(file_path)
+        simulator = ArtifactSimulator(file_path)
         if args.clear_state:
             simulator.clear_state()
        
@@ -165,5 +174,5 @@ class NIfTI_SingleFileCLI:
         print(f"Analysis results saved to {json_path}")
 
 if __name__ == "__main__":
-    cli = NIfTI_SingleFileCLI()
+    cli = SingleFileCLI()
     cli.run()
