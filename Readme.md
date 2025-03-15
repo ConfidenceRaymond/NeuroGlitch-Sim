@@ -77,7 +77,7 @@ Combinining the `single mode` and `single_img` applies one simulation (e.g., `mi
   ```
 - **Output Files**: `outputs/MNI152_T1_2mm_brain_wrong_sequence_mixed_axis.nii.gz`, `outputs/multi_analysis_results.json`, `outputs/gifs/MNI152_T1_2mm_brain_wrong_sequence.gif`, `outputs/gifs/MNI152_T1_2mm_brain_mixed_axis.gif`
 
-### Single Image Mode
+### Multiple Image Mode
 Combinining the `single mode` and `multi_img` applies one simulation (e.g., `missing_slides`) to a multiple NIfTI file, producing a single output with specific targets, ideal for isolated analysis.  
 
 **Multiple Files Simulation:**
