@@ -5,13 +5,66 @@ A Python tool for simulating `missing slides, wrong sequence, and mixed axis` is
 
 The `single mode` applies one simulation (e.g., missing_slides) to a NIfTI file, producing a single output with specific targets, ideal for isolated analysis. The `independent mode` applies multiple simulations (e.g., `missing_slides and wrong_sequence`) separately to the original data, generating distinct outputs and targets for each, allowing comparison of individual effects. The `chained mode` applies multiple simulations sequentially (e.g., `mixed_axis then wrong_sequence`), with each simulation modifying the previous result, producing a single output with combined targets like `final_to_original and source_axis`, reflecting the cumulative impact of ordered transformations.
 
-**Missing_slides:** Randomly removes a specified number or fraction of slices along a chosen axis, simulating data loss, with targets tracking removed positions and presence. ![Missing Slides Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet.jpg)
+###  Setup
+```bash
+git clone https://github.com/ConfidenceRaymond/NeuroGlitch.git
+cd NeuroGlitch
+pip install -r requirements.txt
 
-**wrong_sequence:** Randomly shuffles a specified number or fraction of slices along a chosen axis, simulating misordering, with targets providing the original sequence order. ![Wrong Sequence Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ws.jpg)
+```
 
-**Mixed_axis:** Replaces a specified number or fraction of slices along a primary axis with data from auxiliary axes (resized if needed), simulating axis confusion, with targets identifying mixed positions and source axes. ![Mixed Axis Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ma.jpg)
+###  Example Usage from Terminal
+The `single mode` applies one simulation (e.g., missing_slides) to a NIfTI file, producing a single output with specific targets, ideal for isolated analysis.  The `chained mode` applies multiple simulations sequentially (e.g., `mixed_axis then wrong_sequence`), with each simulation modifying the previous result, producing a single output with combined targets like `final_to_original and source_axis`, reflecting the cumulative impact of ordered transformations. The `fixed_range`  parameter `range` option randomizes the simulation procces. It requires `upper and lower bounds` for each simulation parameter to be modified in the `param.py` file, while the `fixed` option allows you to provide your fixed parameters from the terminal.
+
+**Missing Slides Simulation:**
+- **Description:** `missing_slides` randomly removes a specified number or fraction of slices along a chosen axis, simulating data loss, with targets tracking removed positions and presence.
+- **Command**:
+  ```bash
+  cd src
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range range # randomize parameter
+  or
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range fixed --sim_mode single --sim_type missing_slides --sim_img single_img --remove_param 5 --axis 0
+  or
+  python NeuroGlitch.py -i Sample_Data/ --fixed_range fixed --sim_mode single --sim_type missing_slides --sim_img single_img --remove_param 5 --axis 0 # multiple data in a folder
+  ```
+- **Output Files**: `outputs/MNI152_T1_2mm_brain_missing_slides.nii.gz`, `outputs/MNI152_T1_2mm_brain_missing_slides.json` `outputs/gifs/MNI152_T1_2mm_brain_missing_slides.gif`
+ ![Missing Slides Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet.jpg)
 
 
+**Wrong Sequence Simulation:**
+- **Description:** `wrong_sequence` randomly shuffles a specified number or fraction of slices along a chosen axis, simulating misordering, with targets providing the original sequence order. 
+- **Command**:
+  ```bash
+  cd src
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz  --fixed_range range
+  or
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range fixed --shuffle_param 0.3 --axis 1
+  ```
+- **Output Files**: `outputs/MNI152_T1_2mm_brain_wrong_sequence.nii.gz`, `outputs/MNI152_T1_2mm_brain_wrong_sequence.json` `outputs/gifs/MNI152_T1_2mm_brain_wrong_sequence.gif`
+![Wrong Sequence Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ws.jpg)
+
+**Mixed Axis Simulation:**
+- **Description:** `mixed_axis`replaces a specified number or fraction of slices along a primary axis with data from auxiliary axes (resized if needed), simulating axis confusion, with targets identifying mixed positions and source axes. 
+- **Command**:
+  ```bash
+  cd src
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range range
+   or
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range fixed --weight_param 0.3 --mixed_axis_list 0 1
+  ```
+- **Output Files**: `outputs/MNI152_T1_2mm_brain_mixed_axis.nii.gz`, `outputs/MNI152_T1_2mm_brain_mixed_axis.json` `outputs/gifs/MNI152_T1_2mm_brain_mixed_axis.gif`
+![Mixed Axis Example](https://github.com/ConfidenceRaymond/NIftI-SimViz/blob/main/Sample_Data/snippet_ma.jpg)
+
+**Independent Mode Multiple Simulation:**
+- **Description:** `independent` applies multiple simulations (e.g., `missing_slides and wrong_sequence`) separately to the original data, generating distinct outputs and targets for each, allowing comparison of individual effects. 
+- **Command**:
+  ```bash 
+  cd src
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range range
+   or
+  python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range fixed --weight_param 0.3 --mixed_axis_list 0 1
+  ```
+- **Output Files**: `outputs/MNI152_T1_2mm_brain_wrong_sequence.nii.gz`, `outputs/MNI152_T1_2mm_brain_wrong_sequence.json` `outputs/gifs/MNI152_T1_2mm_brain_wrong_sequence.gif`
 
 
 ##  CLI Parameters
