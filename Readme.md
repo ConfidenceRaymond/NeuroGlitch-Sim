@@ -75,7 +75,7 @@ Combinining the `single mode` and `single_img` applies one simulation (e.g., `mi
    or
   python NeuroGlitch.py -i Sample_Data/MNI152_T1_2mm_brain.nii.gz --fixed_range fixed --sim_mode chained --sim_type wrong_sequence mixed_axis --sim_img single_img --save_type 3d --weight_param 0.3 --mixed_axis_list 0 1 --shuffle_param 0.3 --axis 0
   ```
-- **Output Files**: For `wrong_sequence`: `outputs/MNI152_T1_2mm_brain_wrong_sequence.nii.gz`, `outputs/MNI152_T1_2mm_brain_wrong_sequence.json`, `outputs/gifs/MNI152_T1_2mm_brain_wrong_sequence.gif`. For `mixed_axis`: `outputs/MNI152_T1_2mm_brain_mixed_axis.nii.gz`, `outputs/MNI152_T1_2mm_brain_mixed_axis.json`, `outputs/gifs/MNI152_T1_2mm_brain_mixed_axis.gif`
+- **Output Files**: `outputs/MNI152_T1_2mm_brain_wrong_sequence_mixed_axis.nii.gz`, `outputs/multi_analysis_results.json`, `outputs/gifs/MNI152_T1_2mm_brain_wrong_sequence.gif`, `outputs/gifs/MNI152_T1_2mm_brain_mixed_axis.gif`
 
 ### Single Image Mode
 Combinining the `single mode` and `multi_img` applies one simulation (e.g., `missing_slides`) to a multiple NIfTI file, producing a single output with specific targets, ideal for isolated analysis.  
