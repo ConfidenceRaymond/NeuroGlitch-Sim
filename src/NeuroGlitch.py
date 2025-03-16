@@ -12,7 +12,7 @@ from param import Opts
 class RunCLI:
     def __init__(self):
         self.parser = self._create_parser()
-        self.opt = Opts()
+        
         
     def int_or_float(self, value):
         try:
@@ -22,10 +22,11 @@ class RunCLI:
         
     def get_fixed_range(self):
         args = self.parser.parse_args()
-        if args.fixed_range == 'fixed':
+        if args.fixed_range == 'range':
+            opt = Opts()
+            args = opt
+        elif args.fixed_range == 'fixed':  # fixed
             args = args
-        elif args.fixed_range == 'range':
-            args = self.opt
         else:
             raise ValueError(f"fixed_range {args.fixed_range} is invalid, value must be 'fixed' or 'range'")
         return args
@@ -52,7 +53,7 @@ class RunCLI:
 
         parser.add_argument("--axis", type=int, choices=[0, 1, 2], default=0, help="Main axis for simulations")
         parser.add_argument("--clear_state", action="store_true", help="Clear simulator state before each file")
-        parser.add_argument("--verbose", action="store_true", default=True, help="print out check points")
+        parser.add_argument("--verbose", action="store_true", default=False, help="print out check points")
         parser.add_argument("--save_type", type=str, choices=["3d", "jpeg", "None"], default="None", help="Output save type")
         parser.add_argument("--fixed_range", type=str, choices=["fixed", "range"], default="range", required=True, help="fixed value for simualtion or provide range in param.py")
         return parser
@@ -234,25 +235,32 @@ class RunCLI:
             return
     
         analysis_results = []
+        # print(args.sim_type) 
+        print('remove_param_arg', args.remove_param)
+        
     
         for nifti_file in tqdm(nifti_files, desc="Simulating MRI files"):
             file_path = os.path.join(args.i, nifti_file)
             base_name = os.path.splitext(os.path.splitext(nifti_file)[0])[0]
-            if args.verbose:
-                print(f"Processing {nifti_file} in {args.sim_mode} mode with simulations: {args.sim_type}...")
+            reset_args = self.get_fixed_range() #Re
+            # print(reset_args.sim_type)
+            print('remove_param_reset_args', reset_args.remove_param)
 
             simulator = ArtifactSimulator(file_path)
-            if args.clear_state:
+            if reset_args.clear_state:
                 simulator.clear_state()
                 
-            multi_analysis_results = self.SimOps(simulator, base_name, args)
+            if args.verbose:
+                print(f"Processing {nifti_file} in {reset_args.sim_mode} mode with simulations: {reset_args.sim_type}...")
+                
+            multi_analysis_results = self.SimOps(simulator, base_name, reset_args)
             
             analysis_results.append(multi_analysis_results)
             
         self.write_to_json(json_paths, analysis_results)
             
     def SingleFile(self, args):
-        self.SetUp(args)
+        _ = self.SetUp(args)
         
         
         file_path = args.i
@@ -277,9 +285,9 @@ class RunCLI:
     def run(self):
         args = self.get_fixed_range()
         if args.sim_img == "single_img":
-            self.SingleFile(args)
+            self.SingleFile(args) # args
         elif args.sim_img == "multi_img":
-            self.MultiFile(args)
+            self.MultiFile(args) # args
         else:
             raise ValueError(f"Unknown simulation image type: {args.sim_img}")
         

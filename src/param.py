@@ -12,7 +12,7 @@ class Opts(object):
         self.o = '../outputs/'         # output_path
         self.gif_dir = '../outputs/gifs/'
         #self.json_file = False
-        self.verbose = True  # Controls print functions
+        self.verbose = False  # Controls print functions
         
         '''Axis'''
         # Axis Param  --fixed_range
