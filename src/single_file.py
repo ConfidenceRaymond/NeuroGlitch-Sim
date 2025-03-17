@@ -11,11 +11,7 @@ class SingleFileCLI:
         self.parser = self._create_parser()
         
         
-    def int_or_float(self, value):
-        try:
-            return int(value)
-        except ValueError:
-            return float(value)
+    
    
     def _create_parser(self):
         parser = argparse.ArgumentParser(
