@@ -1,6 +1,6 @@
 
 
-##  NifTI Simulation Visualization (NIftI-SimViz)
+##  NeuroGlitch-Sim: Medical Image Simulation.
 A Python tool for simulating `missing slides, wrong sequence, and mixed axis` issues in 3D NIfTI brain imaging data, either `single, independently or chained`, visualizing results as GIFs, and documenting simulation details in JSON. Supports batch processing of multiple files or single-file processing with customizable simulation types.
 
 ###  Setup
